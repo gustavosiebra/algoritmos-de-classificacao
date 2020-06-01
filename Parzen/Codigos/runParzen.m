@@ -13,6 +13,7 @@ h = 0.005;
 
 %% Le arquivo
 data = load('iris.txt');
+%data = load('wine.txt');
 
 %% Normalizacao dos dados.
 dataset = normalizeData(data);
@@ -36,12 +37,5 @@ for i = 1 : 30
 end
 
 %% Plot Acuracia
-% [accMedia, desvioPadrao] = plotAccuracy( i, acc );
-
-% cp = classperf(id,dTe);
-% get(cp);
-
-% stats = confusionmatStats(dTe, id);
-
-%%Regiao de Decisao 
-%[XY] = deciosionregion(dataset, h);
+[accMedia, desvioPadrao] = plotAccuracy( i, acc );
+disp(['media acuracia = ',num2str(accMedia*100),'%'])  

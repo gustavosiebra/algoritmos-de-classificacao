@@ -9,12 +9,12 @@ clear all;
 close all;
 
 %% Le arquivo
-data = load('wine.txt');
+data = load('iris2D.txt');
 
 %% Treino e Teste Kmeans
 K = 3; 
 Max_Its = 10;
-N = 10;
+N = 50;
 
 for n = 1:N
     [id, M, dTr] = testeKmeans(data, K);

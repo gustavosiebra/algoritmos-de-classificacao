@@ -9,13 +9,13 @@ clear all;
 close all;
 
 %% carregando arquivo
-%img_orig = imread('flagJapan.jpg');
+img_orig = imread('flagJapan.jpg');
 %img_orig = imread('flagEUA.jpg');
 %img_orig = imread('flagItalia.jpg');
 %img_orig = imread('flagFranca.jpg');
 %img_orig = imread('flagBrazil.jpg');
 %img_orig = imread('flagHolanda.jpg');
-img_orig = imread('flagUruguai.jpg');
+%img_orig = imread('flagUruguai.jpg');
 
 %% Indique o numero de Classes
 nC = input('Enter the number of Class:  '); % passe o mouse na imagem

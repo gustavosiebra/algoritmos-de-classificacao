@@ -9,8 +9,8 @@ clear all;
 close all;
 
 %% Carregando arquivo
-%data = load('iris.txt');
-data = load('wine.txt');
+data = load('iris.txt');
+%data = load('wine.txt');
 %k = input('Enter the number of nearest neighbors:  ');
 
 %% definindo variaveis

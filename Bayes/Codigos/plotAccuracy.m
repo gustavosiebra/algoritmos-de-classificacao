@@ -23,12 +23,12 @@ plot(acc, '--bo',...
 hold on
 plot(y,accMedia, '-*r');  
 xlabel('Iterações','FontSize',10);
-ylabel('Acuracia','FontSize',10);
+ylabel('Acuracia (%)','FontSize',10);
 grid on
 legend('Acurácia','Média',...
     'Location','northoutside','Orientation','horizontal')
 
-print (h, '-depsc', 'plotAccDerm_type4.eps');
+%print (h, '-depsc', 'plotAccDerm_type4.eps');
 
 end
 

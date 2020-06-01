@@ -9,12 +9,11 @@ clear all;
 close all;
 
 %% Carregando arquivo
-% data = load('iris.txt');
 data = load('iris.txt');
-% data = load('column.txt');
+%data = load('wine.txt');
 
 %% Iterações
-R = 25;
+R = 50;
 % Alocando as matrizes das métricas.
 acc = zeros(1,R);
 confMat = zeros(1,R);
@@ -39,14 +38,14 @@ for r = 1:R
     acc(r) = acuracia(id, dTe);
 end
 
-% % Plot Caracteristicas
+% % Plot Caracteristicas only dataset Iris
 tmp1 = plotLabelsTest(dataset);
 % 
 % % Plot da Acuracia
 [accMedia, desvioPadrao] = plotAccuracy( r, acc );
 % 
 % %% Plot mvnpdf
-[XY] = plotmvnpdf(dataset, 1);
+%[XY] = plotmvnpdf(dataset, 1);
 % 
 % %% Regiao de Decisao
 [XY] = deciosionregion(dataset, 1);

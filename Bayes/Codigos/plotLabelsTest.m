@@ -44,7 +44,7 @@ function tmp = plotLabels(dataset)
         
     end
     
-    print (h, '-depsc', 'myfigDerm.eps');
+    %print(h, '-depsc', 'myfigDerm.eps');
 
     tmp = 1;
     

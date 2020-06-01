@@ -3,84 +3,44 @@
 % Programa de Pos-Graduacao em Ciencias da Computacao - PPGCC
 % Disciplina: Machine Learning
 
-%%
+%% Variaveis de limpeza
 clc;
 clear all;
 close all;
 
-% Step 1
-irisdata = load ('iris.txt');
-k = input('Enter the number of nearest neighbors:  ');
+%% Carregando arquivo
+%data = load('iris.txt');
+data = load('wine.txt');
+%k = input('Enter the number of nearest neighbors:  ');
 
-setosa = irisdata((irisdata(:,5)==1),:);        % data for setosa
-versicolor = irisdata((irisdata(:,5)==2),:);    % data for versicolor
-virginica = irisdata((irisdata(:,5)==3),:);     % data for virginica
+%% definindo variaveis
+R = 30; % numero de realizacoes
+k = 25; %Enter the number of nearest neighbors
+confMatrix = zeros(0,R);
 
-kMax = 120;
+setosa = data((data(:,5)==1),:);        % data for setosa
+versicolor = data((data(:,5)==2),:);    % data for versicolor
+virginica = data((data(:,5)==3),:);     % data for virginica
 
-%for k=1:kMax
+for r = 1:R    
+    %% Normalizacao dos dados.
+    dataset = normalizeData(data);
+
+    %% Embaralhar base de dados.
+    dataset = randomizeData(dataset);
+
+    %% Separacao dos dados.
+    [dataTr,dataTe,xTr,dTr,xTe,dTe, att] = separateData(dataset);
+
+    %% Calculo do Knn.
+    [ndTr,nC,acc] = KNN(dTr,xTr,dTe,xTe,size(xTe,1),size(xTr,1),k);
     
-    % Definicao do numero de realizacoes.
-    R = 10;
-    confMatrix = zeros(3,3);
+    %% Acuracia
+    accuracy(r) = acuracia(nC, dTe);
 
-    for r = 1:R
+end
 
-        %Step 2: Randomizing and dividing data into 1:1 ratio for training and
-        %testing
-
-        split = 0;
-        count = 0;
-
-        while(count~=1)
-            numofobs = length(irisdata);
-            rearrangement = randperm(numofobs);
-            newirisdata = irisdata(rearrangement,:);
-            split = ceil(numofobs/5);
-            count = count + 1;
-        end
-
-        % Separate data
-        dataTe = newirisdata(1:split,:);
-        dataTr = newirisdata(split+1:end,:);
-
-        % Separate and normalize Training of Test
-        xTe = dataTe(:,1:end-1);
-        xTe = normalize(xTe);
-        dTe = dataTe(:,end);
-
-        xTr = dataTr(:,1:end-1);
-        xTr = normalize(xTr);
-        dTr = dataTr(:,end);
-
-        numoftestdata = size(xTe,1);
-        numoftrainingdata = size(xTr,1);
-        
-        % Calculo do Knn.
-        [ndTr,nC,acuracia] = KNN(dTr,xTr,dTe,xTe,numoftestdata,numoftrainingdata,k);
-
-        aC(r) = acuracia/numoftestdata * 100;
-
-        % Calculo da matriz de confusao por realizacao.
-        %confMatrix(r,:,:) = confusionmat(nC, dTe);
-
-        [C,order] = confusionmat(nC, dTe);
-        confMatrix = C + confMatrix;
-
-    end
-    
-    acuraciaMedia(k) = mean(aC);
-    desvioPadrao(k) = std(aC);
-
-%end 
-
-% figure, gscatter(irisdata(:,1),irisdata(:,2),irisdata(:,end));
-% figure, gscatter(irisdata(:,1),irisdata(:,3),irisdata(:,end));
-% figure, gscatter(irisdata(:,1),irisdata(:,4),irisdata(:,end));
-% figure, gscatter(irisdata(:,2),irisdata(:,3),irisdata(:,end));
-% figure, gscatter(irisdata(:,2),irisdata(:,4),irisdata(:,end));
-% figure, gscatter(irisdata(:,3),irisdata(:,4),irisdata(:,end));
-
+%% plot caracteristicas somente para Iris
 Characteristics = {'sepal length','sepal width','petal length','petal width'};
 pairs = [1 2; 1 3; 1 4; 2 3; 2 4; 3 4];
 h = figure;
@@ -94,11 +54,7 @@ for j = 1:6,
     ylabel(Characteristics{y},'FontSize',10);
 end
 
-figure, plot(aC); ylabel('Acuracia','FontSize',10);
-figure, plot(acuraciaMedia); 
-xlabel('K','FontSize',10);
-ylabel('Acuracia','FontSize',10);
-figure, plot(desvioPadrao); 
-xlabel('K','FontSize',10);
-ylabel('Desvio Padrao','FontSize',10);
+%% Plot da Acuracia
+[accMedia, desvioPadrao] = plotAccuracy(r, accuracy);
+disp(['media acuracia = ',num2str(accMedia*100),'%']) 
 

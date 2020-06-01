@@ -8,7 +8,7 @@ clc;
 clear all;
 close all;
 
-%% Le arquivo
+%% carregando arquivo
 img_orig = imread('flagJapan.jpg');
 % img_orig = imread('flagEUA1.jpg');
 % img_orig = imread('flagItaly.jpg');
@@ -38,9 +38,6 @@ fprintf('Testando...\n')
 h = 3;
 [Yh, ~] = parzenTeste(h, dadosTeste, prior, result);
 toc
-
-% %% Acuracia
-% acc = acuracia(id, dTe);
 
 Yh = Yh(dadosTeste.ic);
 

@@ -9,11 +9,11 @@ clear all;
 close all;
 
 %% Le arquivo
-data = load('iris2D.txt');
+data = load('iris.txt');
+%data = load('wine.txt');
 
 %% Treino e Teste Kmeans
 K = 3; 
-Max_Its = 10;
 N = 50;
 
 for n = 1:N
@@ -24,9 +24,3 @@ end
 
 %% Plot Acuracia
 [accMedia, desvioPadrao] = plotAccuracy( N, acc );
-
-%% Plot Region Decision
-%[XY, id, M1] = deciosionregion(data, K);
-
-%% Plot Region Decision
-% [XY, id,  M1] = decisaoRegiao(data, K);

@@ -24,8 +24,7 @@ function [ndTr,nC,acuracia] = KNN(dTr,xTr,dTe,xTe,numoftestdata,numoftrainingdat
         if(nC(sample) == dTe(sample)) 
             acuracia = acuracia + 1;
         end
-        
     end
-
+    nC = nC';
 end
 

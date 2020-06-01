@@ -13,7 +13,7 @@ data = load('iris.txt');
 
 %% Treino e Teste Kmeans
 K = 3; 
-Max_Its = 10;
+Max_Its = 50;
 
 for n = 1:Max_Its
     

@@ -20,40 +20,10 @@ function [id, M, dTr] = testeKmeans(data, K)
     dTr = dataset(:,end);
     [N,~] = size(dataset);
 
-    %temp = (randperm(length(xTr)))'; % randomize rows
-    %M = xTr(temp(1:K,1),:); % select first K rows as initial centroids
-    M = [0.0600; 0.5096; 0.8160]; %iris.txt 
-    %M = [0.654171851761921;0.128553412309537;0.321211633150798]; %wine.txt
+    %% Bayes Treino
+    [ndTr, M, media, sigma] = bayesTraining(xTr, dTr);
+    M = M';
     
-%     y = zeros(1, size(data,1));
-% 
-%     % enquanto não estabilizar
-%     for epoca = 1 : Max_Its
-% 
-%         % Rotulando as amostras (Etapa E)
-%         [~, clusters] = sort(pdist2(M, xTr));
-%         yNew = clusters(1,:);
-%         
-%         [~,id] = min(clusters);
-% 
-%         if ( sum(y==yNew) == size(data,1) )
-%             fprintf('K-Means estabilizou na época %d\n', epoca);
-%             break
-%         end    
-%         y = yNew;
-% 
-% 
-%         % Posicionado os prototipos (Etapa M)
-%         for i=1: K
-%             M(i, :) = mean(xTr(y==i, :));
-%         end
-% 
-% 
-%     end
-    
-    
-    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
     for r = 1 : N
         
         for k = 1:K
@@ -71,17 +41,7 @@ function [id, M, dTr] = testeKmeans(data, K)
         ndTr = dTr(id);
 
         %Calculo da Moda
-        nC(r) = mode(ndTr(1:K,:));
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %         Z = zeros(N,K);
-    %         for m = 1:N
-    %             Z(m,id(m)) = 1;
-    %         end
-    %         
-    %         e(n) = sum(sum(Z.*Dist)./N);
-    %         fprintf('%d Error = %f\n', n, e(n));
-    %         %Mo = M;
-    
+        nC(r) = mode(ndTr(1:K,:));    
     end
 end
 
